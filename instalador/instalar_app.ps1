@@ -12,7 +12,7 @@ $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$Version       = "1.0.1"
+$Version       = "1.0.2"
 $Planificador  = Join-Path $Destino "planificador"
 $Programas     = Join-Path $env:LOCALAPPDATA "Programs"
 $Descargas     = Join-Path $env:TEMP "instalar_planificador_outlook"
@@ -82,8 +82,9 @@ try {
     $s.Save()
 
     # ------------------------------------------------------------ 4. Aplicaciones instaladas (solo este usuario)
+    # Es opcional: algunos antivirus corporativos (p. ej. FortiClient) bloquean esta escritura en el
+    # registro. Si pasa, la aplicación queda instalada igual y se desinstala desde el menú Inicio.
     $clave = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\PlanificadorOutlook"
-    New-Item -Path $clave -Force | Out-Null
     $valores = @{
         DisplayName     = "Planificador Outlook"
         DisplayVersion  = $Version
@@ -96,8 +97,15 @@ try {
         NoModify        = 1
         NoRepair        = 1
     }
-    foreach ($k in $valores.Keys) { Set-ItemProperty -Path $clave -Name $k -Value $valores[$k] }
-    Ok "Registrado en Configuración > Aplicaciones instaladas"
+    try {
+        New-Item -Path $clave -Force | Out-Null
+        foreach ($k in $valores.Keys) { Set-ItemProperty -Path $clave -Name $k -Value $valores[$k] }
+        Ok "Registrado en Configuración > Aplicaciones instaladas"
+    } catch {
+        Remove-Item -Path $clave -Recurse -Force -ErrorAction SilentlyContinue  # no dejar una entrada vacía
+        Aviso "Tu antivirus no dejó registrarla en 'Aplicaciones instaladas' (no afecta la aplicación)."
+        Aviso "Para desinstalar usa: menú Inicio > Planificador Outlook > Desinstalar Planificador Outlook."
+    }
 
     # ------------------------------------------------------------ Comprobaciones
     Paso "Comprobaciones"

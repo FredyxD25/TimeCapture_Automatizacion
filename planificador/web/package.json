@@ -3,7 +3,7 @@
   "private": true,
   "author": "FredyxD25",
   "homepage": "https://github.com/FredyxD25/TimeCapture_Automatizacion",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",

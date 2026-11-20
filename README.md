@@ -28,7 +28,7 @@ Necesitas internet durante la instalación.
 
 **Para actualizar**, ejecuta el instalador de la versión nueva. Tu catálogo, tus reglas, tus etiquetas aprendidas y tus respaldos se conservan.
 
-**Para desinstalar**, ve a *Configuración → Aplicaciones instaladas → Planificador Outlook*, o usa el acceso *Desinstalar Planificador Outlook* del menú Inicio. Antes de borrar, te ofrece guardar tus datos en Documentos.
+**Para desinstalar**, usa el acceso *Desinstalar Planificador Outlook* del menú Inicio o ve a *Configuración → Aplicaciones instaladas → Planificador Outlook*. Algunos antivirus corporativos, como FortiClient, no dejan registrarla en *Aplicaciones instaladas*. El instalador lo avisa y la aplicación funciona igual. Antes de borrar, te ofrece guardar tus datos en Documentos.
 
 ## Primer uso
 

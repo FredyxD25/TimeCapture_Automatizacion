@@ -127,7 +127,7 @@ export default function App() {
     <FestivosContexto.Provider value={festivos}>
     <div className="app">
       <header className="barra" ref={barraRef}>
-        <h1 className="titulo-app"><img src="/logo.png" alt="" className="logo-app" />Planificador Outlook<span className="autor-app" title="https://github.com/FredyxD25/TimeCapture_Automatizacion">v1.0.1 · por FredyxD25</span></h1>
+        <h1 className="titulo-app"><img src="/logo.png" alt="" className="logo-app" />Planificador Outlook<span className="autor-app" title="https://github.com/FredyxD25/TimeCapture_Automatizacion">v1.0.2 · por FredyxD25</span></h1>
         <nav className="pestanas">
           <button className={pestana === "plan" ? "activa" : ""} onClick={() => setPestana("plan")}>Planificador</button>
           <button className={pestana === "catalogo" ? "activa" : ""} onClick={() => setPestana("catalogo")}>Catálogo de tareas</button>
