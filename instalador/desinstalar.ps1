@@ -1,5 +1,5 @@
 ﻿<#
-  Desinstala Planificador Outlook: quita accesos directos, el registro en "Aplicaciones instaladas"
+  Desinstala Planificador Outlook: quita los accesos directos
   y la carpeta de la aplicación. Python y sus librerías se dejan (pueden usarlos otros programas).
   Antes pregunta si guardar tus datos (catálogo, etiquetas aprendidas, respaldos) en Documentos.
 #>
@@ -24,7 +24,9 @@ if ((Read-Host "¿Guardar tus datos (catálogo, etiquetas aprendidas y respaldos
 
 Remove-Item (Join-Path ([Environment]::GetFolderPath("Desktop")) "Planificador Outlook.lnk") -Force -ErrorAction SilentlyContinue
 Remove-Item (Join-Path ([Environment]::GetFolderPath("Programs")) "Planificador Outlook") -Recurse -Force -ErrorAction SilentlyContinue
-Remove-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\PlanificadorOutlook" -Recurse -Force -ErrorAction SilentlyContinue
+# Solo limpia la entrada que dejaban las versiones 1.0.0-1.0.2, si existe
+$viejo = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\PlanificadorOutlook"
+if (Test-Path $viejo) { Remove-Item $viejo -Recurse -Force -ErrorAction SilentlyContinue }
 
 Set-Location $env:TEMP
 Remove-Item $Destino -Recurse -Force -ErrorAction SilentlyContinue

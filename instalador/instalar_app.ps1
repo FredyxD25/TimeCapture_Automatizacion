@@ -3,7 +3,8 @@
     1. Python 3.12            (instalador oficial de python.org, "solo para mí", con verificación de firma)
     2. Librerías de Python    (pywin32, flask, pywebview)
     3. Accesos directos       (escritorio y menú Inicio)
-    4. Registro en "Aplicaciones instaladas" de Windows (para poder desinstalar)
+    No escribe en el registro de Windows ni cambia el PATH (los antivirus corporativos lo bloquean);
+    para desinstalar: menú Inicio > Planificador Outlook > Desinstalar.
   La interfaz ya viene compilada, así que no hace falta Node.js.
 #>
 param([Parameter(Mandatory = $true)][string]$Destino, [switch]$SinAccesos)
@@ -44,7 +45,7 @@ try {
         Ok "Firma verificada: Python Software Foundation"
         Write-Host "    Instalando solo para este usuario..."
         $p = Start-Process $instalador -Wait -PassThru -ArgumentList @(
-            "/quiet", "InstallAllUsers=0", "PrependPath=1", "Include_test=0", "Include_launcher=0", "Shortcuts=0")
+            "/quiet", "InstallAllUsers=0", "PrependPath=0", "Include_test=0", "Include_launcher=0", "Shortcuts=0")
         if ($p.ExitCode -ne 0 -or -not (Test-Path $PythonExe)) { throw "La instalación de Python falló (código $($p.ExitCode))." }
         Ok "Python instalado en $PythonExe"
     }
@@ -56,7 +57,7 @@ try {
     & $PythonExe -c "import win32com.client, flask, webview; print('    OK  pywin32, flask y pywebview cargan bien')"
     if ($LASTEXITCODE -ne 0) { throw "Las librerías se instalaron pero no cargan." }
 
-    if ($SinAccesos) { Aviso "Modo prueba: sin accesos directos ni registro"; exit 0 }
+    if ($SinAccesos) { Aviso "Modo prueba: sin accesos directos"; exit 0 }
 
     # ------------------------------------------------------------ 3. Accesos directos
     Paso "Accesos directos"
@@ -80,32 +81,6 @@ try {
     $s.Arguments = "-NoProfile -ExecutionPolicy Bypass -File `"$desinstalar`""
     $s.IconLocation = "$Icono,0"
     $s.Save()
-
-    # ------------------------------------------------------------ 4. Aplicaciones instaladas (solo este usuario)
-    # Es opcional: algunos antivirus corporativos (p. ej. FortiClient) bloquean esta escritura en el
-    # registro. Si pasa, la aplicación queda instalada igual y se desinstala desde el menú Inicio.
-    $clave = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\PlanificadorOutlook"
-    $valores = @{
-        DisplayName     = "Planificador Outlook"
-        DisplayVersion  = $Version
-        Publisher       = "FredyxD25"
-        URLInfoAbout    = "https://github.com/FredyxD25/TimeCapture_Automatizacion"
-        HelpLink        = "https://github.com/FredyxD25/TimeCapture_Automatizacion"
-        DisplayIcon     = $Icono
-        InstallLocation = $Destino
-        UninstallString = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$desinstalar`""
-        NoModify        = 1
-        NoRepair        = 1
-    }
-    try {
-        New-Item -Path $clave -Force | Out-Null
-        foreach ($k in $valores.Keys) { Set-ItemProperty -Path $clave -Name $k -Value $valores[$k] }
-        Ok "Registrado en Configuración > Aplicaciones instaladas"
-    } catch {
-        Remove-Item -Path $clave -Recurse -Force -ErrorAction SilentlyContinue  # no dejar una entrada vacía
-        Aviso "Tu antivirus no dejó registrarla en 'Aplicaciones instaladas' (no afecta la aplicación)."
-        Aviso "Para desinstalar usa: menú Inicio > Planificador Outlook > Desinstalar Planificador Outlook."
-    }
 
     # ------------------------------------------------------------ Comprobaciones
     Paso "Comprobaciones"
