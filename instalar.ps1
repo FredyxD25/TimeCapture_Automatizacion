@@ -29,6 +29,7 @@ $NodeVersion   = "v26.13.1"
 $NodeDir       = Join-Path $Programas "nodejs"
 $Librerias     = @("pywin32", "flask", "pywebview")
 
+
 function Paso($texto) { Write-Host ""; Write-Host "==> $texto" -ForegroundColor Cyan }
 function Ok($texto)   { Write-Host "    OK  $texto" -ForegroundColor Green }
 function Aviso($texto){ Write-Host "    !!  $texto" -ForegroundColor Yellow }
