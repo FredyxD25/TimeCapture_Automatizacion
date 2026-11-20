@@ -12,7 +12,7 @@ $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$Version       = "1.0.2"
+$Version       = "1.0.3"
 $Planificador  = Join-Path $Destino "planificador"
 $Programas     = Join-Path $env:LOCALAPPDATA "Programs"
 $Descargas     = Join-Path $env:TEMP "instalar_planificador_outlook"

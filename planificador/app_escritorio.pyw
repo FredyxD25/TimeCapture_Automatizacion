@@ -17,13 +17,52 @@ import webview
 BASE = Path(__file__).resolve().parent
 REGISTRO = BASE / "app_errores.log"
 ICONO = BASE / "icono" / "icono.ico"
+TITULO = "Planificador Outlook"
+APP_ID = "FredyxD25.PlanificadorOutlook"
 
 try:
     # Identidad propia en la barra de tareas (si no, Windows la agrupa con Python y muestra su ícono)
     import ctypes
-    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("FredyxD25.PlanificadorOutlook")
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(APP_ID)
 except Exception:
     pass
+
+
+def preparar_anclaje():
+    """Le dice a Windows cómo volver a abrir la app si se ancla la ventana a la barra de tareas.
+
+    Con una identidad propia (APP_ID) y sin esto, Windows ancla algo que no sabe ejecutar y el
+    botón anclado no abre nada. Aquí se fija en la ventana el comando, el nombre y el ícono."""
+    import os
+    import sys
+
+    import pythoncom
+    import win32gui
+    import win32process
+    from win32com.propsys import propsys
+
+    pythoncom.CoInitialize()
+    pythonw = Path(sys.executable).with_name("pythonw.exe")
+    comando = f'"{pythonw}" "{Path(__file__).resolve()}"'
+    ventanas = []
+
+    def revisar(hwnd, _):
+        if win32gui.GetWindowText(hwnd) == TITULO and win32process.GetWindowThreadProcessId(hwnd)[1] == os.getpid():
+            ventanas.append(hwnd)
+
+    win32gui.EnumWindows(revisar, None)
+    for hwnd in ventanas:
+        store = propsys.SHGetPropertyStoreForWindow(hwnd, propsys.IID_IPropertyStore)
+        # Primero los datos para relanzar y al final la identidad (Windows los lee juntos)
+        for nombre, valor in (
+            ("System.AppUserModel.RelaunchCommand", comando),
+            ("System.AppUserModel.RelaunchDisplayNameResource", TITULO),
+            ("System.AppUserModel.RelaunchIconResource", f"{ICONO},0"),
+            ("System.AppUserModel.ID", APP_ID),
+        ):
+            store.SetValue(propsys.PSGetPropertyKeyFromName(nombre), propsys.PROPVARIANTType(valor))
+        store.Commit()
+    return len(ventanas)
 
 
 def puerto_libre():
@@ -61,14 +100,23 @@ def main():
     hilo.start()
     esperar_servidor(puerto)
 
-    webview.create_window(
-        "Planificador Outlook",
+    ventana = webview.create_window(
+        TITULO,
         f"http://127.0.0.1:{puerto}",
         width=1440,
         height=900,
         min_size=(900, 600),
         confirm_close=False,
     )
+
+    def al_mostrar():
+        try:
+            preparar_anclaje()
+        except Exception:
+            # No impide usar la app: solo afecta a volver a abrirla desde un anclaje
+            (BASE / "app_anclaje.log").write_text(traceback.format_exc(), encoding="utf-8")
+
+    ventana.events.shown += al_mostrar
     # Sin modo privado, para que la ventana recuerde el rango de fechas entre aperturas.
     # Ícono: el logo de Time Capture (en la ventana y, por el AppUserModelID, en la barra de tareas).
     webview.start(private_mode=False, storage_path=str(BASE / ".datos_ventana"), icon=str(ICONO))
