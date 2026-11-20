@@ -1,7 +1,9 @@
 {
   "name": "planificador-outlook",
   "private": true,
-  "version": "1.0.0",
+  "author": "FredyxD25",
+  "homepage": "https://github.com/FredyxD25/TimeCapture_Automatizacion",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",

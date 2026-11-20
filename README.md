@@ -1,5 +1,7 @@
 # Planificador Outlook + Time Capture
 
+Creado por **[FredyxD25](https://github.com/FredyxD25)** · [Descargar la última versión](https://github.com/FredyxD25/TimeCapture_Automatizacion/releases/latest)
+
 Aplicación de escritorio para Windows que:
 
 - **Planifica tu semana en Outlook** dentro del horario laboral (L–J 8:00–17:30, V 8:00–17:00, almuerzo de 1 h entre 12:00 y 14:00), respetando las reuniones aceptadas y repartiendo las tareas de tu catálogo (semanales, quincenales, mensuales y de cierre de mes).
@@ -11,7 +13,7 @@ Todo se hace con **tu propia sesión de Outlook**: cada persona sube sus activid
 
 ## Instalación (sin administrador)
 
-1. Descarga **`Instalar_PlanificadorOutlook.exe`** desde la sección [Releases](../../releases).
+1. Descarga **`Instalar_PlanificadorOutlook.exe`** desde [Releases](https://github.com/FredyxD25/TimeCapture_Automatizacion/releases/latest).
 2. Ábrelo. Si Windows muestra *"Windows protegió su PC"*, pulsa **Más información → Ejecutar de todas formas**. Esto pasa porque el instalador no está firmado digitalmente.
 3. Espera a que termine. El instalador:
    - copia la aplicación en `%LOCALAPPDATA%\Programs\PlanificadorOutlook`;
@@ -57,3 +59,7 @@ powershell -ExecutionPolicy Bypass -File instalador\construir.ps1
 El instalador queda en `salida\Instalar_PlanificadorOutlook.exe`. Por defecto **no incluye datos personales** (catálogo, etiquetas aprendidas, respaldos). Con `-IncluirMiCatalogo` se agrega `planificador\catalogo.json`.
 
 **Instalar desde el código**, como desarrollador: `Instalar.bat`, que también instala Node.js portable y compila la interfaz.
+
+## Autor
+
+[FredyxD25](https://github.com/FredyxD25). Si encuentras un error o tienes una idea, abre un [issue](https://github.com/FredyxD25/TimeCapture_Automatizacion/issues).

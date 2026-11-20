@@ -12,7 +12,7 @@ $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-$Version       = "1.0.0"
+$Version       = "1.0.1"
 $Planificador  = Join-Path $Destino "planificador"
 $Programas     = Join-Path $env:LOCALAPPDATA "Programs"
 $Descargas     = Join-Path $env:TEMP "instalar_planificador_outlook"
@@ -87,7 +87,9 @@ try {
     $valores = @{
         DisplayName     = "Planificador Outlook"
         DisplayVersion  = $Version
-        Publisher       = "Planificador Outlook"
+        Publisher       = "FredyxD25"
+        URLInfoAbout    = "https://github.com/FredyxD25/TimeCapture_Automatizacion"
+        HelpLink        = "https://github.com/FredyxD25/TimeCapture_Automatizacion"
         DisplayIcon     = $Icono
         InstallLocation = $Destino
         UninstallString = "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$desinstalar`""
@@ -110,6 +112,7 @@ try {
 
     Write-Host ""
     Write-Host "Listo. Abre 'Planificador Outlook' desde el escritorio o el menú Inicio." -ForegroundColor Green
+    Write-Host "Planificador Outlook $Version - por FredyxD25 · https://github.com/FredyxD25/TimeCapture_Automatizacion"
     exit 0
 } catch {
     Write-Host ""

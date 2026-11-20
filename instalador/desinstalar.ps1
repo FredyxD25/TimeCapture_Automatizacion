@@ -7,7 +7,7 @@ $ErrorActionPreference = "Continue"
 $Destino = Split-Path -Parent $PSScriptRoot
 $Planificador = Join-Path $Destino "planificador"
 
-Write-Host "Desinstalar Planificador Outlook" -ForegroundColor White
+Write-Host "Desinstalar Planificador Outlook (por FredyxD25)" -ForegroundColor White
 Write-Host "Carpeta: $Destino"
 Write-Host ""
 if ((Read-Host "¿Seguro que quieres desinstalarlo? (s/n)") -notmatch "^[sSyY]") { exit 0 }

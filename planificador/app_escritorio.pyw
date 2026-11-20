@@ -21,7 +21,7 @@ ICONO = BASE / "icono" / "icono.ico"
 try:
     # Identidad propia en la barra de tareas (si no, Windows la agrupa con Python y muestra su ícono)
     import ctypes
-    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("Eficacia.PlanificadorOutlook")
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("FredyxD25.PlanificadorOutlook")
 except Exception:
     pass
 

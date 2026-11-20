@@ -16,8 +16,10 @@ using System.Reflection;
 [assembly: AssemblyTitle("Instalador Planificador Outlook")]
 [assembly: AssemblyProduct("Planificador Outlook")]
 [assembly: AssemblyDescription("Planificador de calendario Outlook y carga a Time Capture")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyCompany("FredyxD25")]
+[assembly: AssemblyCopyright("© 2026 FredyxD25 - https://github.com/FredyxD25/TimeCapture_Automatizacion")]
+[assembly: AssemblyVersion("1.0.1.0")]
+[assembly: AssemblyFileVersion("1.0.1.0")]
 
 static class Programa
 {
@@ -52,7 +54,8 @@ static class Programa
 
         try
         {
-            Titulo("Planificador Outlook - instalador (no necesita administrador)");
+            Titulo("Planificador Outlook 1.0.1 - instalador (no necesita administrador)");
+            Console.WriteLine("Por FredyxD25 · https://github.com/FredyxD25/TimeCapture_Automatizacion");
             Console.WriteLine("Carpeta de instalación: " + destino);
 
             Paso("Copiando la aplicación");

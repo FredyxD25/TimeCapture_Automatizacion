@@ -260,3 +260,6 @@ button.enlace:hover { text-decoration: underline; }
 .reporte p { margin: 4px 0; }
 .reporte ul { margin: 4px 0; padding-left: 18px; }
 .mover button { padding: 3px 8px; margin-left: 2px; }
+
+/* Versión y autor junto al título */
+.autor-app { margin-left: 10px; font-size: 12px; font-weight: 400; opacity: 0.75; white-space: nowrap; }
