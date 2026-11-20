@@ -1,0 +1,19 @@
+# --- Datos personales: NO subir a un repositorio público ---
+planificador/respaldos/
+planificador/catalogo.json
+planificador/etiquetas_aprendidas.json
+planificador/app_errores.log
+planificador/.datos_ventana/
+time_capture_*.json
+CONTEXTO.md
+
+# --- Generados ---
+salida/
+planificador/web/node_modules/
+planificador/web/dist/
+__pycache__/
+*.pyc
+*.lnk
+
+# --- Locales ---
+.claude/

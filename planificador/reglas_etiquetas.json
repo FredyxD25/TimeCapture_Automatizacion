@@ -1,0 +1,14 @@
+[
+  {"palabras": "almuerzo", "categoria": "No productivo"},
+  {"palabras": "cierre", "categoria": "Cierre del mes"},
+  {"palabras": "agotados quincenal", "categoria": "Agotados Quincenal"},
+  {"palabras": "capacitacion, formacion, curso, taller, webinar, aprendizaje, data days, potencia tus habilidades", "categoria": "Espacios de aprendizaje"},
+  {"palabras": "daily, migracion, sgi 4.0", "categoria": "Migración"},
+  {"palabras": "pausa saludable, minutos para ti, dias para cuidarte, bienestar", "categoria": "Espacios corporativos"},
+  {"palabras": "parametrizacion, rutero, surtido, golden rules", "categoria": "Parametrización"},
+  {"palabras": "registro fotografico", "categoria": "Informes negociados"},
+  {"palabras": "liquidacion, cobertura", "categoria": "Cierre del mes"},
+  {"palabras": "informe, informes", "categoria": "Informes adicionales"},
+  {"palabras": "seg , seguimiento, actualizacion, encuesta", "categoria": "Actualización"},
+  {"palabras": "plan de trabajo, alineacion, revision", "categoria": "Administrativo I&AC"}
+]
